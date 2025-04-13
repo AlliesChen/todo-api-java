@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
 public class TodoItem {
+    private Long id;
     private String title;
     private String description;
+    private boolean completed;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -16,11 +18,19 @@ public class TodoItem {
 
     }
 
-    public TodoItem(String title, String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public TodoItem(Long id, String title, String description, boolean completed, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
         this.title = title;
         this.description = description;
+        this.completed = completed;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+    // For request
+    public TodoItem(String title, String description, boolean completed) {
+        this.title = title;
+        this.description = description;
+        this.completed = completed;
     }
 
     public String getTitle() {
@@ -29,6 +39,22 @@ public class TodoItem {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     public String getDescription() {

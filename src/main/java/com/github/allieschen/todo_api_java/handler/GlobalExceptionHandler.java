@@ -2,6 +2,7 @@ package com.github.allieschen.todo_api_java.handler;
 
 import com.github.allieschen.todo_api_java.dto.ApiResponse;
 import com.github.allieschen.todo_api_java.dto.ErrorDetail;
+import com.github.allieschen.todo_api_java.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,6 +25,13 @@ public class GlobalExceptionHandler {
                 .map(error -> new ErrorDetail(error.getField(), error.getDefaultMessage()))
                 .collect(Collectors.toList());
         return ApiResponse.failure("Validation failed", errors);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiResponse<?> handleNotFound(NotFoundException ex) {
+        return ApiResponse.failure("Not Found", List.of(new ErrorDetail("todo", ex.getMessage())));
     }
 
     @ExceptionHandler(Exception.class)
