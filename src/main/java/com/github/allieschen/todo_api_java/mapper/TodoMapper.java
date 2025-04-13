@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface TodoMapper {
     @Insert("INSERT INTO todos (title, description, completed, created_at, updated_at) VALUES (#{title}, #{description}, #{completed}, NOW(), NOW())")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    Long insert(TodoItem todo);
+    void insert(TodoItem todo);
 
     @Select("SELECT * FROM todos ORDER BY id")
     List<TodoItem> findAll();

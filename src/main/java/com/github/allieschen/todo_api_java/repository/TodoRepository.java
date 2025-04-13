@@ -24,7 +24,7 @@ public class TodoRepository {
     }
 
     public Long save(TodoItem todo) {
-
-        return todoMapper.insert(todo);
+        todoMapper.insert(todo);
+        return todo.getId();
     }
 }

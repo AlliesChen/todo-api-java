@@ -8,7 +8,6 @@ public class CreateTodoRequest {
     @NotNull
     private String title;
     private String description;
-    @NotNull
     private boolean completed;
 
     public CreateTodoRequest() {};
