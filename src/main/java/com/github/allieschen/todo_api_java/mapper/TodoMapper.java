@@ -8,9 +8,9 @@ import java.util.Optional;
 
 @Mapper
 public interface TodoMapper {
-    @Insert("INSERT INTO todos (title, description, completed, created_at, updated_at) VALUES (#{title}, #{description}, #{completed}, NOW(), NOW())")
+    @Select("INSERT INTO todos (title, description, completed, created_at, updated_at) VALUES (#{title}, #{description}, #{completed}, NOW(), NOW()) RETURNING id")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    void insert(TodoItem todo);
+    Long insert(TodoItem todo);
 
     @Select("SELECT * FROM todos ORDER BY id")
     List<TodoItem> findAll();
